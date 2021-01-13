@@ -26,33 +26,39 @@ const PhoneDetailComponent = (props) => {
     );
   } else {
     detailPhone = (
-      <div className='photo-detail__container'>
-        <div className='phone-detail__image'>
-          <img src={phone.imageUrl} alt={phone.title} />
-        </div>
-        <Card className='detail-card__container'>
-          <div className='phone-detail__info'>
-            <h2>{phone.title}</h2>
-            <h3>{phone.color}</h3>
-            <p>{phone.description}</p>
+      <React.Fragment>
+        {props.isLoading ? (
+          <Spinner />
+        ) : (
+          <div className='photo-detail__container'>
+            <div className='phone-detail__image'>
+              <img src={phone.imageUrl} alt={phone.title} />
+            </div>
+            <Card className='detail-card__container'>
+              <div className='phone-detail__info'>
+                <h2>{phone.title}</h2>
+                <h3>{phone.color}</h3>
+                <p>{phone.description}</p>
+              </div>
+              <div>
+                <h3>Especificaciones</h3>
+                <ul>
+                  {phone.especificaciones.map((e) => {
+                    return (
+                      <li key={e.name}>
+                        {e.name} : {e.value}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <h2>{`Precio: ${phone.price}`}</h2>
+              </div>
+            </Card>
           </div>
-          <div>
-            <h3>Especificaciones</h3>
-            <ul>
-              {phone.especificaciones.map((e) => {
-                return (
-                  <li key={e.name}>
-                    {e.name} : {e.value}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <h2>{`Precio: ${phone.price}`}</h2>
-          </div>
-        </Card>
-      </div>
+        )}
+      </React.Fragment>
     );
   }
 
